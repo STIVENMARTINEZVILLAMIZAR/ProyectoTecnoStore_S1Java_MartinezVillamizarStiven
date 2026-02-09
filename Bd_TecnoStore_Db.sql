@@ -9,6 +9,23 @@ DROP TABLE IF EXISTS `detalle_ventas`;
 DROP TABLE IF EXISTS `ventas`;
 DROP TABLE IF EXISTS `clientes`;
 DROP TABLE IF EXISTS `celulares`;
+DROP TABLE IF EXISTS `marca`;
+DROP TABLE IF EXISTS `gama`;
+
+CREATE TABLE `marca` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `nombre` VARCHAR(50) NOT NULL UNIQUE,
+  `descripcion` VARCHAR(200),
+  `fecha_creacion` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE `gama` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `nombre` VARCHAR(50) NOT NULL UNIQUE,
+  `descripcion` VARCHAR(200),
+  `factor_precio` DECIMAL(3, 2) DEFAULT 1.0,
+  `fecha_creacion` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `celulares` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -48,6 +65,18 @@ CREATE TABLE `detalle_ventas` (
   FOREIGN KEY (`id_venta`) REFERENCES `ventas`(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`id_celular`) REFERENCES `celulares`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `marca` (nombre, descripcion) VALUES
+('Apple', 'Fabricante de dispositivos iOS'),
+('Samsung', 'Fabricante de dispositivos Android'),
+('Xiaomi', 'Fabricante chino de tecnología'),
+('Motorola', 'Fabricante estadounidense'),
+('OnePlus', 'Fabricante de smartphones premium');
+
+INSERT INTO `gama` (nombre, descripcion, factor_precio) VALUES
+('Baja', 'Gama baja - Entrada', 0.95),
+('Media', 'Gama media - Estándar', 1.0),
+('Alta', 'Gama alta - Premium', 1.05);
 
 INSERT INTO `celulares` (marca, modelo, precio, stock, sistema_operativo, gama) VALUES
 ('Apple', 'iPhone 15', 1299.99, 15, 'iOS', 'Alta'),
