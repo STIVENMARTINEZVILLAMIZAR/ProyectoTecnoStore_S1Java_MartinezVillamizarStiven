@@ -349,7 +349,7 @@ public class Menu {
         System.out.println("\n--- Realizar Venta ---");
         System.out.print("ID del cliente: ");
         int idCliente = sc.nextInt();
-        sc.nextLine();
+        sc.nextLine(); // Limpiar buffer
         
         Cliente cliente = gestorClientes.obtenerPorId(idCliente);
         if (cliente == null) {
@@ -362,12 +362,17 @@ public class Menu {
         System.out.println("\nIngrese los celulares a vender (ID 0 para terminar):");
         
         List<DetalleVenta> detalles = new ArrayList<>();
+        boolean agregarMas = true;
         
-        while (true) {
-            System.out.print("ID Celular: ");
+        while (agregarMas) {
+            System.out.print("\nID Celular (0 para terminar): ");
             int idCelular = sc.nextInt();
+            sc.nextLine(); // Limpiar buffer
             
-            if (idCelular == 0) break;
+            if (idCelular == 0) {
+                agregarMas = false;
+                break;
+            }
             
             Celular celular = gestorCelulares.obtenerPorId(idCelular);
             if (celular == null) {
@@ -375,9 +380,15 @@ public class Menu {
                 continue;
             }
             
+            System.out.println("Celular: " + celular.getMarca() + " " + celular.getModelo() + " - $" + celular.getPrecio());
             System.out.print("Cantidad: ");
             int cantidad = sc.nextInt();
-            sc.nextLine();
+            sc.nextLine(); // Limpiar buffer
+            
+            if (cantidad <= 0) {
+                System.out.println("✗ Cantidad debe ser mayor a 0");
+                continue;
+            }
             
             if (cantidad > celular.getStock()) {
                 System.out.println("✗ Stock insuficiente. Disponible: " + celular.getStock());
@@ -389,15 +400,27 @@ public class Menu {
             detalles.add(detalle);
             
             System.out.println("✓ Producto agregado. Subtotal: $" + String.format("%.2f", subtotal));
+            System.out.print("¿Desea agregar otro celular? (S/N): ");
+            String respuesta = sc.nextLine().trim();
+            
+            if (respuesta.equalsIgnoreCase("N")) {
+                agregarMas = false;
+            }
         }
         
         if (!detalles.isEmpty()) {
             try {
                 int idVenta = gestorVentas.registrarVenta(idCliente, detalles);
                 double total = detalles.stream().mapToDouble(DetalleVenta::getSubtotal).sum() * 1.19;
-                System.out.println("\n✓ Venta registrada exitosamente!");
+                System.out.println("\n========== VENTA REGISTRADA ==========");
+                System.out.println("✓ Venta exitosa!");
                 System.out.println("ID Venta: " + idVenta);
-                System.out.println("Total (con IVA 19%): $" + String.format("%.2f", total));
+                System.out.println("Cliente: " + cliente.getNombre());
+                System.out.println("Total de productos: " + detalles.size());
+                System.out.println("Subtotal: $" + String.format("%.2f", detalles.stream().mapToDouble(DetalleVenta::getSubtotal).sum()));
+                System.out.println("IVA (19%): $" + String.format("%.2f", detalles.stream().mapToDouble(DetalleVenta::getSubtotal).sum() * 0.19));
+                System.out.println("Total (con IVA): $" + String.format("%.2f", total));
+                System.out.println("=====================================");
             } catch (IllegalArgumentException e) {
                 System.out.println("✗ Error: " + e.getMessage());
             }
