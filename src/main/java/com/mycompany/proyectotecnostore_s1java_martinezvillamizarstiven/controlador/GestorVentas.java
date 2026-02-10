@@ -30,6 +30,10 @@ public class GestorVentas {
         Venta venta = new Venta(0, idCliente, LocalDate.now(), total);
         int idVenta = dao.guardar(venta);
         
+        if (idVenta == -1) {
+            throw new SQLException("No se pudo registrar la venta");
+        }
+        
         for (DetalleVenta detalle : detalles) {
             detalle.setIdVenta(idVenta);
             dao.guardarDetalle(detalle);
@@ -53,6 +57,9 @@ public class GestorVentas {
     }
 
     public List<Venta> obtenerVentasMes(int mes, int anio) throws SQLException {
+        if (mes < 1 || mes > 12) {
+            throw new IllegalArgumentException("Mes inválido (1-12)");
+        }
         return dao.obtenerPorMes(mes, anio);
     }
 
@@ -64,9 +71,5 @@ public class GestorVentas {
         return obtenerVentasMes(mes, anio).stream()
                 .mapToDouble(Venta::getTotal)
                 .sum();
-    }
-
-    public List<Celular> obtenerTop3Vendidos() throws SQLException {
-        return null;
     }
 }
