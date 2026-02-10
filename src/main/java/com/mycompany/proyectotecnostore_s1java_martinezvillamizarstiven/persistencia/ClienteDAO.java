@@ -1,12 +1,17 @@
 package com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.persistencia;
 
-
-import com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.modelo.Cliente;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.modelo.Cliente;
+
 public class ClienteDAO {
+    
     public void guardar(Cliente cliente) throws SQLException {
         String sql = "INSERT INTO clientes (nombre, identificacion, correo, telefono) VALUES (?, ?, ?, ?)";
         try (Connection conn = ConexionDB.obtenerConexion();
@@ -20,13 +25,13 @@ public class ClienteDAO {
     }
 
     public void actualizar(Cliente cliente) throws SQLException {
-        String sql = "UPDATE clientes SET nombre=?, correo=?, telefono=? WHERE identificacion=?";
+        String sql = "UPDATE clientes SET nombre=?, correo=?, telefono=? WHERE id=?";
         try (Connection conn = ConexionDB.obtenerConexion();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, cliente.getNombre());
             stmt.setString(2, cliente.getCorreo());
             stmt.setString(3, cliente.getTelefono());
-            stmt.setString(4, cliente.getIdentificacion());
+            stmt.setInt(4, cliente.getId());
             stmt.executeUpdate();
         }
     }
@@ -47,8 +52,7 @@ public class ClienteDAO {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new Cliente(rs.getInt("id"), rs.getString("nombre"), rs.getString("identificacion"),
-                        rs.getString("correo"), rs.getString("telefono"));
+                return construirCliente(rs);
             }
         }
         return null;
@@ -61,8 +65,7 @@ public class ClienteDAO {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                clientes.add(new Cliente(rs.getInt("id"), rs.getString("nombre"), rs.getString("identificacion"),
-                        rs.getString("correo"), rs.getString("telefono")));
+                clientes.add(construirCliente(rs));
             }
         }
         return clientes;
@@ -75,10 +78,14 @@ public class ClienteDAO {
             stmt.setString(1, identificacion);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new Cliente(rs.getInt("id"), rs.getString("nombre"), rs.getString("identificacion"),
-                        rs.getString("correo"), rs.getString("telefono"));
+                return construirCliente(rs);
             }
         }
         return null;
+    }
+
+    private Cliente construirCliente(ResultSet rs) throws SQLException {
+        return new Cliente(rs.getInt("id"), rs.getString("nombre"), rs.getString("identificacion"),
+                rs.getString("correo"), rs.getString("telefono"));
     }
 }
