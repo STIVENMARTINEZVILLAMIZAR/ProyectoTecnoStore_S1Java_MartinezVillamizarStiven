@@ -1,13 +1,14 @@
-package com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.Modelos;
+package com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.modelo;
 
-public class ItemVenta {
+public class DetalleVenta {
+    
     private int id;
     private int idVenta;
     private int idCelular;
     private int cantidad;
     private double subtotal;
 
-    public ItemVenta(int id, int idVenta, int idCelular, int cantidad, double subtotal) {
+    public DetalleVenta(int id, int idVenta, int idCelular, int cantidad, double subtotal) {
         this.id = id;
         this.idVenta = idVenta;
         this.idCelular = idCelular;
@@ -28,6 +29,6 @@ public class ItemVenta {
 
     @Override
     public String toString() {
-        return "ItemVenta{celular=" + idCelular + ", cantidad=" + cantidad + ", subtotal=" + subtotal + "}";
+        return "DetalleVenta{celular=" + idCelular + ", cantidad=" + cantidad + ", subtotal=" + subtotal + "}";
     }
 }

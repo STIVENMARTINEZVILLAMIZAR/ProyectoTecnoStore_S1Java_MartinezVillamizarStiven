@@ -1,22 +1,24 @@
-package com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.Modelos;
+package com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.modelo;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Venta {
     private int id;
     private int idCliente;
     private LocalDate fecha;
     private double total;
-    private List<ItemVenta> items;
+    private List<DetalleVenta> detalles;
 
     public Venta(int id, int idCliente, LocalDate fecha, double total) {
         this.id = id;
         this.idCliente = idCliente;
         this.fecha = fecha;
         this.total = total;
-        this.items = new ArrayList<>();
+        this.detalles = new ArrayList<>();
     }
 
     public int getId() { return id; }
@@ -27,8 +29,8 @@ public class Venta {
     public void setFecha(LocalDate fecha) { this.fecha = fecha; }
     public double getTotal() { return total; }
     public void setTotal(double total) { this.total = total; }
-    public List<ItemVenta> getItems() { return items; }
-    public void agregarItem(ItemVenta item) { items.add(item); }
+    public List<DetalleVenta> getDetalles() { return detalles; }
+    public void agregarDetalle(DetalleVenta detalle) { this.detalles.add(detalle); }
 
     @Override
     public String toString() {
