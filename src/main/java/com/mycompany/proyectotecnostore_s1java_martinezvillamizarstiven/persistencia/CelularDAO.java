@@ -1,11 +1,14 @@
 package com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.persistencia;
 
-
-import com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.modelo.Celular;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.modelo.Celular;
 
 public class CelularDAO {
     
@@ -54,8 +57,7 @@ public class CelularDAO {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new Celular(rs.getInt("id"), rs.getString("marca"), rs.getString("modelo"),
-                        rs.getDouble("precio"), rs.getInt("stock"), rs.getString("sistema_operativo"), rs.getString("gama"));
+                return construirCelular(rs);
             }
         }
         return null;
@@ -68,10 +70,15 @@ public class CelularDAO {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                celulares.add(new Celular(rs.getInt("id"), rs.getString("marca"), rs.getString("modelo"),
-                        rs.getDouble("precio"), rs.getInt("stock"), rs.getString("sistema_operativo"), rs.getString("gama")));
+                celulares.add(construirCelular(rs));
             }
         }
         return celulares;
+    }
+
+    private Celular construirCelular(ResultSet rs) throws SQLException {
+        return new Celular(rs.getInt("id"), rs.getString("marca"), rs.getString("modelo"),
+                rs.getDouble("precio"), rs.getInt("stock"), rs.getString("sistema_operativo"), 
+                rs.getString("gama"));
     }
 }
