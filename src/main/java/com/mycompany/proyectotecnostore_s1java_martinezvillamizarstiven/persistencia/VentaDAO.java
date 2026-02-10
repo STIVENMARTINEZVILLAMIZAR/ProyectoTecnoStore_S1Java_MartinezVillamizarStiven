@@ -1,13 +1,18 @@
 package com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.persistencia;
 
-import com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.modelo.Venta;
-import com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.modelo.DetalleVenta;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.modelo.DetalleVenta;
+import com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.modelo.Venta;
 
 public class VentaDAO {
+    
     public int guardar(Venta venta) throws SQLException {
         String sql = "INSERT INTO ventas (id_cliente, fecha, total) VALUES (?, ?, ?)";
         try (Connection conn = ConexionDB.obtenerConexion();
@@ -17,9 +22,10 @@ public class VentaDAO {
             stmt.setDouble(3, venta.getTotal());
             stmt.executeUpdate();
             
-            ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()) {
-                return rs.getInt(1);
+            try (ResultSet rs = stmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
             }
         }
         return -1;
@@ -44,8 +50,7 @@ public class VentaDAO {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new Venta(rs.getInt("id"), rs.getInt("id_cliente"), 
-                        rs.getDate("fecha").toLocalDate(), rs.getDouble("total"));
+                return construirVenta(rs);
             }
         }
         return null;
@@ -58,8 +63,7 @@ public class VentaDAO {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                ventas.add(new Venta(rs.getInt("id"), rs.getInt("id_cliente"), 
-                        rs.getDate("fecha").toLocalDate(), rs.getDouble("total")));
+                ventas.add(construirVenta(rs));
             }
         }
         return ventas;
@@ -74,10 +78,14 @@ public class VentaDAO {
             stmt.setInt(2, anio);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                ventas.add(new Venta(rs.getInt("id"), rs.getInt("id_cliente"), 
-                        rs.getDate("fecha").toLocalDate(), rs.getDouble("total")));
+                ventas.add(construirVenta(rs));
             }
         }
         return ventas;
+    }
+
+    private Venta construirVenta(ResultSet rs) throws SQLException {
+        return new Venta(rs.getInt("id"), rs.getInt("id_cliente"), 
+                rs.getDate("fecha").toLocalDate(), rs.getDouble("total"));
     }
 }
