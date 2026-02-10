@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 public class ConexionDB {
     private static final String URL = "jdbc:mysql://localhost:3306/tecnostore_db";
-    private static final String USUARIO = "root";
-    private static final String PASSWORD = "";
+    private static final String USUARIO = "campus2023";
+    private static final String PASSWORD = "campus2023";
 
     public static Connection obtenerConexion() throws SQLException {
         try {
