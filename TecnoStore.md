@@ -1,32 +1,24 @@
 # 🏪 TecnoStore - Sistema de Gestión de Ventas
 
-## 📸 Diagramas Visuales
-
-### Diagrama de Arquitectura
-![Arquitectura del Sistema](img/Untitled%20diagram-2026-02-11-040854.png)
-
-### Modelo de Datos - Diagrama Entidad-Relación (ER)
-![Modelo de Datos](img/drawSQL-image-export-2026-02-11%20(2).png)
-
 ## Tabla de Contenidos
 
-1. [Diagramas Visuales](#-diagramas-visuales)
-2. [Descripción Visual](#-descripción-visual)
-3. [Tablas de la Base de Datos](#-tablas-de-la-base-de-datos)
-4. [Relaciones entre Tablas](#-relaciones-entre-tablas)
-5. [Casos de Uso Principales](#-casos-de-uso-principales)
-6. [Reportes Disponibles](#-reportes-disponibles)
-7. [Validaciones Implementadas](#-validaciones-implementadas)
+1. [Descripción Visual](#-descripción-visual)
+2. [Diagramas Visuales](#-diagramas-visuales)
+3. [Tablas de la Base de Datos](#-📋-tablas-de-la-base-de-datos)
+4. [Relaciones entre Tablas](#-🔄-relaciones-entre-tablas)
+5. [Validaciones Implementadas](#-🔐-validaciones-implementadas)
+6. [Casos de Uso Principales](#-🎯-casos-de-uso-principales)
+7. [Reportes Disponibles](#-📈-reportes-disponibles)
 8. [Patrones de Diseño](#-patrones-de-diseño)
-9. [Estadísticas del Proyecto](#-estadísticas-del-proyecto)
-10. [Flujo Completo de Ejecución](#-flujo-completo-de-ejecución)
-11. [Checklist de Funcionalidades](#-checklist-de-funcionalidades)
+9. [Estadísticas del Proyecto](#-📊-estadísticas-del-proyecto)
+10. [Flujo Completo de Ejecución](#-🚀-flujo-completo-de-ejecución)
+11. [Checklist de Funcionalidades](#-✅-checklist-de-funcionalidades)
 
 ---
 
 ## 🎨 Descripción Visual
 
-### Flujo de Operaciones
+### Flujo de Operaciones y Arquitectura
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -71,6 +63,19 @@
                  │  - gama           │
                  └───────────────────┘
 ```
+
+---
+
+## 📸 Diagramas Visuales
+
+### Diagrama de Arquitectura
+![Arquitectura del Sistema](img/Untitled%20diagram-2026-02-11-040854.png)
+
+**Descripción:** Diagrama que muestra la estructura general del sistema TecnoStore con todas sus capas:
+- **Capa de Presentación (Vista):** Interfaz de usuario en consola
+- **Capa de Negocio (Controladores):** Lógica de gestión
+- **Capa de Persistencia (DAO):** Acceso a datos
+- **Capa de Base de Datos:** MySQL
 
 ---
 
@@ -365,7 +370,41 @@ try (Connection conn = ConexionDB.obtenerConexion();
 
 ---
 
-## Validaciones Implementadas
+## 🔄 Relaciones entre Tablas
+
+### Diagrama Entidad-Relación (ER)
+![Modelo de Datos](img/drawSQL-image-export-2026-02-11%20(2).png)
+
+**Descripción:** Diagrama ER que muestra la estructura completa de la base de datos:
+- **Tabla celulares:** Catálogo de productos
+- **Tabla clientes:** Registro de compradores  
+- **Tabla ventas:** Transacciones (FK a clientes)
+- **Tabla detalle_ventas:** Líneas de venta (FK a ventas y celulares)
+- **Tabla marca:** Maestro de fabricantes
+- **Tabla gama:** Maestro de categorías
+
+### Relación Visual
+
+```
+clientes (1) ─────────┐
+                      │
+                      ├─→ (N) ventas
+                      │           │
+                      │           ├─→ (1)
+                      │           │
+                      │      (N) detalle_ventas ←─────── (1) celulares
+```
+
+**Tipos de Relaciones:**
+- `1:N` (Clientes → Ventas): Un cliente puede tener múltiples ventas
+- `1:N` (Ventas → Detalle_Ventas): Una venta puede tener múltiples detalles
+- `1:N` (Celulares → Detalle_Ventas): Un celular puede venderse en múltiples detalles
+- `1:N` (Marca → Celulares): Una marca puede tener múltiples celulares
+- `1:N` (Gama → Celulares): Una gama puede clasificar múltiples celulares
+
+---
+
+## 🔐 Validaciones Implementadas
 
 ### 🔐 Validaciones en Campo
 
@@ -814,5 +853,4 @@ El sistema TecnoStore implementa una solución robusta y escalable para la gesti
 
 **Autor:** Stiven Martínez Villamizar  
 **Versión:** 1.0  
-**Fecha:** 10 de febrero de 2026  
-**Estado:** Funcional con mejoras posibles
+

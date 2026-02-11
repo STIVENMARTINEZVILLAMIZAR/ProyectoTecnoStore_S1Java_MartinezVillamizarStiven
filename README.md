@@ -3,7 +3,8 @@
 <img src="https://img.shields.io/badge/Java-17-orange?logo=java&logoColor=white"/>
 <img src="https://img.shields.io/badge/MySQL-8.0.45-blue?logo=mysql&logoColor=white"/>
 <img src="https://img.shields.io/badge/Maven-4.0.0-C71A36?logo=apache-maven&logoColor=white"/>
-<img src="https://img.shields.io/badge/Editor-VSCode-007ACC?logo=visualstudiocode&logoColor=white"/>
+
+
 
 ## 🎯 Introducción al Proyecto
 
@@ -211,7 +212,7 @@ Opción: 2
 
 ## 📚 Documentación Completa
 
-Para detalles técnicos, diseño de base de datos, validaciones, índices y mejoras posibles, consultar [Documentacion.md](./Documentacion.md)
+Para detalles técnicos, diseño de base de datos, validaciones, índices y mejoras posibles, consultar [TecnoStore.md](./TecnoStore.md)
 
 ---
 
