@@ -1,9 +1,8 @@
 # Sistema de Gestión de Ventas de Celulares - TecnoStore
 
-<img src="https://img.shields.io/badge/Java-17-orange?logo=java&logoColor=white"/>
-<img src="https://img.shields.io/badge/MySQL-8.0.45-blue?logo=mysql&logoColor=white"/>
-<img src="https://img.shields.io/badge/Maven-4.0.0-C71A36?logo=apache-maven&logoColor=white"/>
-<img src="https://img.shields.io/badge/Editor-VSCode-007ACC?logo=visualstudiocode&logoColor=white"/>
+<p align="center">
+<img src="https://img.shields.io/badge/Java-17-orange?logo=java&logoColor=white"/> <img src="https://img.shields.io/badge/MySQL-8.0.45-blue?logo=mysql&logoColor=white"/> <img src="https://img.shields.io/badge/Maven-4.0.0-C71A36?logo=apache-maven&logoColor=white"/> <img src="https://img.shields.io/badge/Editor-VSCode-007ACC?logo=visualstudiocode&logoColor=white"/>
+</p>
 
 
 
