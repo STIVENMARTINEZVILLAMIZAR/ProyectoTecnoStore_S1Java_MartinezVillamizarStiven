@@ -1,0 +1,64 @@
+# IDE y Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.classpath
+.settings/
+*.iml
+*.iws
+*.ipr
+
+# GitHub workflows (solo ignorar en futuros commits)
+.github/
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.maven.metadata.xml
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+*.log
+
+# Compilación
+out/
+build/
+dist/
+.gradle/
+*.o
+*.a
+*.so
+
+# IDE local
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Base de datos local
+*.db
+*.sqlite
+*.sqlite3
+
+# Archivos temporales
+*.tmp
+*.temp

@@ -1,0 +1,11 @@
+{
+  "servers": {
+    "filesystem": {
+      "command": "node",
+      "args": [
+        "/home/camper/Documentos/Anonymus/servers/src/filesystem/dist/index.js"
+      ]
+    }
+  }
+}
+
