@@ -12,6 +12,9 @@
 *.iws
 *.ipr
 
+# GitHub workflows (solo ignorar en futuros commits)
+.github/
+
 # Maven
 target/
 pom.xml.tag
@@ -47,9 +50,6 @@ dist/
 .vscode/launch.json
 .vscode/extensions.json
 
-# GitHub
-.github/
-
 # Sistema operativo
 .DS_Store
 Thumbs.db
@@ -62,31 +62,3 @@ Thumbs.db
 # Archivos temporales
 *.tmp
 *.temp
-
-# Reportes generados (salvo si quieres versionarlos)
-reporte_ventas.txt
-
-# Node (si se usa)
-node_modules/
-npm-debug.log
-yarn-error.log
-
-# Python (si se usa)
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Archivos de configuración local
-config.properties
-.env
-.env.local
-
-# Otros
-.vscode
-.gradle
-.idea
-*.iml
-out/
-target/
-build/
-.DS_Store
