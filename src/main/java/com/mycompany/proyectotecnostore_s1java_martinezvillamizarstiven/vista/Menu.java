@@ -19,7 +19,6 @@ import com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.persiste
 import com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.servicio.ReporteFinancieroService;
 import com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.utilidades.ReporteUtils;
 import com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.utilidades.Validador;
-import com.mycompany.proyectotecnostore_s1java_martinezvillamizarstiven.vista.ReporteFinancieroView;
 
 public class Menu {
     private Scanner sc;
@@ -545,21 +544,18 @@ public class Menu {
             ReporteFinancieroView vista = new ReporteFinancieroView(servicio);
             vista.mostrarMenu();
 
-        } catch (SQLException e) {
-            System.err.println("❌ Error de base de datos: " + e.getMessage());
-            e.printStackTrace();
-            pausa();
         } catch (Exception e) {
-            System.err.println("❌ Error inesperado: " + e.getMessage());
+            System.err.println("❌ Error: " + e.getMessage());
             e.printStackTrace();
             pausa();
         } finally {
+            // Cerrar conexión
             try {
                 if (conexion != null && !conexion.isClosed()) {
                     conexion.close();
                     System.out.println("✅ Conexión cerrada correctamente.");
                 }
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 System.err.println("Error al cerrar la conexión: " + e.getMessage());
             }
         }
